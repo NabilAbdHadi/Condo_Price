@@ -203,7 +203,7 @@ def testData():
                 'area size', 'psf', 'funishing', 
                 'location median price (RM 1000)', 
                 'facilities rating', 'accessibility rating']
-    data = pd.read_csv('Data/Data Testing.csv', usecols=col_names, index_col=False)
+    data = pd.read_csv('Data Testing.csv', usecols=col_names, index_col=False)
     
     not_ok = 0
     predicted_price = []
@@ -230,6 +230,8 @@ def testData():
             print("not ok")
             not_ok+=1
         #fuzzy_program.graphDisplay()
+    accuracy = (len(data) - not_ok)/len(data)
+    print(f"{(len(data) - not_ok)} out of {len(data)} from the dataset are almost equal to the actual price")
     df = pd.DataFrame({'actual price': data['psf'],
                         'predicted price': predicted_price,
                         'difference price': diff_price})
@@ -248,9 +250,10 @@ def main():
                                 int(bathroom),
                                 int(furnishing),
                                 int(areaSize),
-                                facility,
+                                int(facility),
                                 int(access))
     fuzzy_program.run()
+    fuzzy_program.graphDisplay()
     print(fuzzy_program.price)
 
 if __name__ == '__main__':
